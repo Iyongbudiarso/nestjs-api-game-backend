@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "833cdd18-9ea6-4e07-959d-4c902ccd2207",
+		"name": "Nest JS - Game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1480160"
+	},
+	"item": [
+		{
+			"name": "Auth User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"username\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/register",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"let response = pm.response.json();\r",
+									"\r",
+									"console.log(response)\r",
+									"// Check if the status code is 200 and the access_token exists in the response\r",
+									"if (response.statusCode === 200 && response.data && response.data.access_token) {\r",
+									"    // Save the access_token to the environment variable named 'token'\r",
+									"    pm.environment.set('ACCESS_TOKEN', response.data.access_token);\r",
+									"    console.log('Access token & refresh token saved to environment variable {{ACCESS_TOKEN}}');\r",
+									"} else {\r",
+									"    console.log('Failed to save access token. Response does not contain a valid token.');\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"username\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/login",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/logout",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/profile",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scoring & Leaderboard",
+			"item": [
+				{
+					"name": "Score",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"score\": 100 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/score",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"score"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leaderboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/leaderboard?limit=10",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "last_id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shop",
+			"item": [
+				{
+					"name": "Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/shop/items",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"shop",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/shop/buy",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"shop",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions & Top-up",
+			"item": [
+				{
+					"name": "Topup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"wallet_balance\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/wallet/topup",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"wallet",
+								"topup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Battle Pass & Quests",
+			"item": [
+				{
+					"name": "Activate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/battlepass/activate",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"battlepass",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/battlepass/quests",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"battlepass",
+								"quests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Battle Pass Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/battlepass/status",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"battlepass",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "(Optional) Admin / System",
+			"item": [
+				{
+					"name": "Battle Pass Expire",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/admin/battlepass/expire",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"battlepass",
+								"expire"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEzLCJ1c2VybmFtZSI6InVzZXJuYW1lNiIsImlhdCI6MTc1MDA1MjAwMywiZXhwIjoxNzUwMDU1NjAzfQ.27NVMWUjhUCudLk3TYgSu6eU52D5c17bOUrP9PEEzLs",
+			"type": "string"
+		}
+	]
+}
